@@ -46,11 +46,11 @@ Let's find the combined atomic weights of sodium and chlorine:
 
 Okay! 
 Now, recall that `elements` is a list of all valid element symbols. 
-Let's use some Haskell magic to list the atomic weights of the halogens (group 17 elements):
+Let's use some Haskell magic to list the names of the group 17 elements:
 
 <pre>
-> map awei [e | e &lt;- elements, gnum e == 17]
-[18.9984032,35.45,79.904,126.90447,210.0,294.0]
+*Main> map name [e | e &lt;- elements, gnum e == 17]
+["Fluorine","Chlorine","Bromine","Iodine","Astatine","Ununseptium"]
 </pre>
 
 Planned Features
