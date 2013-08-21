@@ -13,7 +13,7 @@ import re
 FIELDS = ['anum', 'symb', 'name', 'gnum', 'pnum', 'awei']
 
 DATA_PATH = 'ptable_simple.csv'
-OUTPUT_NAME = 'elements_simple.hs'
+OUTPUT_NAME = 'ptable.hs'
 OUTPUT_PATH = os.path.join('..', OUTPUT_NAME)
 OUTPUT_HEADER = '--%s: Simple Haskell chemical elements data file.' % OUTPUT_NAME
 
@@ -40,9 +40,16 @@ def write_haskell_function(output, field, output_type, elements):
     output.append('') # Empty line to separate functions
     output.append('%s :: String -> %s' % (field, output_type))
     for element in elements:
-        value = getattr(element, field)
+        value = getattr(element, field).strip()
         if output_type == 'String':
             value = quote(value)
+        elif output_type == 'Double':
+            value = value.split('(')[0] # Omit parenthesized uncertainty value, if present
+            if value[0] == '[' and value[-1] == ']':
+                value = value[1:-1] # Omit surrounding brackets, if present
+        elif output_type == 'Int':
+            if not value:
+                value = '-1' # Replace empty values with -1
         output.append('%s "%s" = %s' % (field, element.symb, value))
     output.append('%s _ = error "Invalid chemical element symbol"' % field)
         
@@ -58,6 +65,9 @@ def main():
     write_haskell_elements_list(output, elements)
     write_haskell_function(output, 'anum', 'Int', elements)
     write_haskell_function(output, 'name', 'String', elements)
+    write_haskell_function(output, 'gnum', 'Int', elements)
+    write_haskell_function(output, 'pnum', 'Int', elements)
+    write_haskell_function(output, 'awei', 'Double', elements)
     write_output(output)
     
 if __name__ == '__main__':
