@@ -6,7 +6,7 @@ ptable provides chemical elements data as a handy Haskell file.
 Usage
 -----
 
-The chemical elements data and the functions used to access them are found in `ptable.hs`.
+The Haskell functions used to access the chemical elements data are found in `ptable.hs`.
 Each element has five accessible properties, each of which is accessed using a different Haskell function:
 
 <table>
@@ -53,10 +53,15 @@ Let's use some Haskell magic to list the names of the group 17 elements:
 ["Fluorine","Chlorine","Bromine","Iodine","Astatine","Ununseptium"]
 </pre>
 
+Source
+------
+
+The data in ptable comes from Wikipedia's [List of elements](https://en.wikipedia.org/wiki/List_of_elements) page.
+
 Planned Features
 ----------------
 
-* Additional Haskell files containing more detailed information presented using a Haskell `data` type.
-* Additional documentation.
+* Additional Haskell files containing more detailed chemical elements data.
+* More complex examples.
 
 Feel free to contribute by forking and submitting pull requests!
